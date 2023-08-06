@@ -1,4 +1,4 @@
-# StimpilklukkaBackend
+# Stimpilklukka
 
 To start your Phoenix server:
 
