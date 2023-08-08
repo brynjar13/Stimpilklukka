@@ -49,8 +49,9 @@ defmodule StimpilklukkaBackend.Stimpilklukka do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_project(attrs \\ %{}) do
-    %Project{}
+  def create_project(user, attrs \\ %{}) do
+    user
+    |> Ecto.build_assoc(:projects)
     |> Project.changeset(attrs)
     |> Repo.insert()
   end

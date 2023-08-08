@@ -4,7 +4,7 @@ defmodule StimpilklukkaBackend.StimpilklukkaTest do
   alias StimpilklukkaBackend.Stimpilklukka
 
   describe "projects" do
-    alias StimpilklukkaBackend.Stimpilklukka.Project
+    alias StimpilklukkaBackend.Projects.Project
 
     import StimpilklukkaBackend.StimpilklukkaFixtures
 
