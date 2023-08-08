@@ -2,7 +2,7 @@ defmodule StimpilklukkaBackendWeb.ProjectController do
   use StimpilklukkaBackendWeb, :controller
 
   alias StimpilklukkaBackend.Stimpilklukka
-  alias StimpilklukkaBackend.Stimpilklukka.Project
+  alias StimpilklukkaBackend.Projects.Project
 
   def index(conn, _params) do
     projects = Stimpilklukka.list_projects()

@@ -6,7 +6,7 @@ defmodule StimpilklukkaBackend.Stimpilklukka do
   import Ecto.Query, warn: false
   alias StimpilklukkaBackend.Repo
 
-  alias StimpilklukkaBackend.Stimpilklukka.Project
+  alias StimpilklukkaBackend.Projects.Project
 
   @doc """
   Returns the list of projects.
