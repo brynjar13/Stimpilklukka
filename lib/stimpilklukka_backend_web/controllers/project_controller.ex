@@ -6,12 +6,12 @@ defmodule StimpilklukkaBackendWeb.ProjectController do
 
   def index(conn, _params) do
     projects = Stimpilklukka.list_projects()
-    render(conn, :index, projects: projects)
+    render(conn, :index, projects: projects, user_id: conn.assigns.current_user.id)
   end
 
   def new(conn, _params) do
     changeset = Stimpilklukka.change_project(%Project{})
-    render(conn, :new, changeset: changeset)
+    render(conn, :new, changeset: changeset, user_id: conn.assigns.current_user.id)
   end
 
   def create(conn, %{"project" => project_params}) do
@@ -19,22 +19,22 @@ defmodule StimpilklukkaBackendWeb.ProjectController do
       {:ok, project} ->
         conn
         |> put_flash(:info, "Project created successfully.")
-        |> redirect(to: ~p"/projects/#{project}")
+        |> redirect(to: ~p"/user/#{conn.assigns.current_user.id}/projects/#{project}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :new, changeset: changeset)
+        render(conn, :new, changeset: changeset, user_id: conn.assigns.current_user.id)
     end
   end
 
   def show(conn, %{"id" => id}) do
     project = Stimpilklukka.get_project!(id)
-    render(conn, :show, project: project)
+    render(conn, :show, project: project, user_id: conn.assigns.current_user.id)
   end
 
   def edit(conn, %{"id" => id}) do
     project = Stimpilklukka.get_project!(id)
     changeset = Stimpilklukka.change_project(project)
-    render(conn, :edit, project: project, changeset: changeset)
+    render(conn, :edit, project: project, changeset: changeset, user_id: conn.assigns.current_user.id)
   end
 
   def update(conn, %{"id" => id, "project" => project_params}) do
@@ -44,10 +44,10 @@ defmodule StimpilklukkaBackendWeb.ProjectController do
       {:ok, project} ->
         conn
         |> put_flash(:info, "Project updated successfully.")
-        |> redirect(to: ~p"/projects/#{project}")
+        |> redirect(to: ~p"/user/#{conn.assigns.current_user.id}/projects/#{project}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :edit, project: project, changeset: changeset)
+        render(conn, :edit, project: project, changeset: changeset, user_id: conn.assigns.current_user.id)
     end
   end
 
@@ -57,6 +57,6 @@ defmodule StimpilklukkaBackendWeb.ProjectController do
 
     conn
     |> put_flash(:info, "Project deleted successfully.")
-    |> redirect(to: ~p"/projects")
+    |> redirect(to: ~p"/user/#{conn.assigns.current_user.id}/projects")
   end
 end

@@ -9,31 +9,31 @@ defmodule StimpilklukkaBackendWeb.ProjectControllerTest do
 
   describe "index" do
     test "lists all projects", %{conn: conn} do
-      conn = get(conn, ~p"/projects")
+      conn = get(conn, ~p"/user/:user_id/projects")
       assert html_response(conn, 200) =~ "Listing Projects"
     end
   end
 
   describe "new project" do
     test "renders form", %{conn: conn} do
-      conn = get(conn, ~p"/projects/new")
+      conn = get(conn, ~p"/user/:user_id/projects/new")
       assert html_response(conn, 200) =~ "New Project"
     end
   end
 
   describe "create project" do
     test "redirects to show when data is valid", %{conn: conn} do
-      conn = post(conn, ~p"/projects", project: @create_attrs)
+      conn = post(conn, ~p"/user/:user_id/projects", project: @create_attrs)
 
       assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == ~p"/projects/#{id}"
+      assert redirected_to(conn) == ~p"/user/:user_id/projects/#{id}"
 
-      conn = get(conn, ~p"/projects/#{id}")
+      conn = get(conn, ~p"/user/:user_id/projects/#{id}")
       assert html_response(conn, 200) =~ "Project #{id}"
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, ~p"/projects", project: @invalid_attrs)
+      conn = post(conn, ~p"/user/:user_id/projects", project: @invalid_attrs)
       assert html_response(conn, 200) =~ "New Project"
     end
   end
@@ -42,7 +42,7 @@ defmodule StimpilklukkaBackendWeb.ProjectControllerTest do
     setup [:create_project]
 
     test "renders form for editing chosen project", %{conn: conn, project: project} do
-      conn = get(conn, ~p"/projects/#{project}/edit")
+      conn = get(conn, ~p"/user/:user_id/projects/#{project}/edit")
       assert html_response(conn, 200) =~ "Edit Project"
     end
   end
@@ -51,15 +51,15 @@ defmodule StimpilklukkaBackendWeb.ProjectControllerTest do
     setup [:create_project]
 
     test "redirects when data is valid", %{conn: conn, project: project} do
-      conn = put(conn, ~p"/projects/#{project}", project: @update_attrs)
-      assert redirected_to(conn) == ~p"/projects/#{project}"
+      conn = put(conn, ~p"/user/:user_id/projects/#{project}", project: @update_attrs)
+      assert redirected_to(conn) == ~p"/user/:user_id/projects/#{project}"
 
-      conn = get(conn, ~p"/projects/#{project}")
+      conn = get(conn, ~p"/user/:user_id/projects/#{project}")
       assert html_response(conn, 200) =~ "some updated project_name"
     end
 
     test "renders errors when data is invalid", %{conn: conn, project: project} do
-      conn = put(conn, ~p"/projects/#{project}", project: @invalid_attrs)
+      conn = put(conn, ~p"/user/:user_id/projects/#{project}", project: @invalid_attrs)
       assert html_response(conn, 200) =~ "Edit Project"
     end
   end
@@ -68,11 +68,11 @@ defmodule StimpilklukkaBackendWeb.ProjectControllerTest do
     setup [:create_project]
 
     test "deletes chosen project", %{conn: conn, project: project} do
-      conn = delete(conn, ~p"/projects/#{project}")
-      assert redirected_to(conn) == ~p"/projects"
+      conn = delete(conn, ~p"/user/:user_id/projects/#{project}")
+      assert redirected_to(conn) == ~p"/user/:user_id/projects"
 
       assert_error_sent 404, fn ->
-        get(conn, ~p"/projects/#{project}")
+        get(conn, ~p"/user/:user_id/projects/#{project}")
       end
     end
   end
