@@ -1,6 +1,6 @@
-defmodule StimpilklukkaBackend.Stimpilklukka do
+defmodule StimpilklukkaBackend.Projects do
   @moduledoc """
-  The Stimpilklukka context.
+  The projects context.
   """
 
   import Ecto.Query, warn: false
@@ -19,6 +19,17 @@ defmodule StimpilklukkaBackend.Stimpilklukka do
   """
   def list_projects do
     Repo.all(Project)
+  end
+
+  @doc """
+  Returns the list of projects from a single user
+  """
+  def list_projects_by_user(user_id) do
+    query = from(p in Project,
+      where: p.user_id == ^user_id,
+      select: p
+    )
+    Repo.all(query)
   end
 
   @doc """

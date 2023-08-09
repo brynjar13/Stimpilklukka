@@ -1,21 +1,22 @@
 defmodule StimpilklukkaBackendWeb.ProjectController do
   use StimpilklukkaBackendWeb, :controller
 
-  alias StimpilklukkaBackend.Stimpilklukka
+  alias StimpilklukkaBackend.Projects
   alias StimpilklukkaBackend.Projects.Project
 
   def index(conn, _params) do
-    projects = Stimpilklukka.list_projects()
-    render(conn, :index, projects: projects, user_id: conn.assigns.current_user.id)
+    user_id = conn.assigns.current_user.id
+    projects = Projects.list_projects_by_user(user_id)
+    render(conn, :index, projects: projects, user_id: user_id)
   end
 
   def new(conn, _params) do
-    changeset = Stimpilklukka.change_project(%Project{})
+    changeset = Projects.change_project(%Project{})
     render(conn, :new, changeset: changeset, user_id: conn.assigns.current_user.id)
   end
 
   def create(conn, %{"project" => project_params}) do
-    case Stimpilklukka.create_project(conn.assigns.current_user, project_params) do
+    case Projects.create_project(conn.assigns.current_user, project_params) do
       {:ok, project} ->
         conn
         |> put_flash(:info, "Project created successfully.")
@@ -27,20 +28,20 @@ defmodule StimpilklukkaBackendWeb.ProjectController do
   end
 
   def show(conn, %{"id" => id}) do
-    project = Stimpilklukka.get_project!(id)
+    project = Projects.get_project!(id)
     render(conn, :show, project: project, user_id: conn.assigns.current_user.id)
   end
 
   def edit(conn, %{"id" => id}) do
-    project = Stimpilklukka.get_project!(id)
-    changeset = Stimpilklukka.change_project(project)
+    project = Projects.get_project!(id)
+    changeset = Projects.change_project(project)
     render(conn, :edit, project: project, changeset: changeset, user_id: conn.assigns.current_user.id)
   end
 
   def update(conn, %{"id" => id, "project" => project_params}) do
-    project = Stimpilklukka.get_project!(id)
+    project = Projects.get_project!(id)
 
-    case Stimpilklukka.update_project(project, project_params) do
+    case Projects.update_project(project, project_params) do
       {:ok, project} ->
         conn
         |> put_flash(:info, "Project updated successfully.")
@@ -52,8 +53,8 @@ defmodule StimpilklukkaBackendWeb.ProjectController do
   end
 
   def delete(conn, %{"id" => id}) do
-    project = Stimpilklukka.get_project!(id)
-    {:ok, _project} = Stimpilklukka.delete_project(project)
+    project = Projects.get_project!(id)
+    {:ok, _project} = Projects.delete_project(project)
 
     conn
     |> put_flash(:info, "Project deleted successfully.")
