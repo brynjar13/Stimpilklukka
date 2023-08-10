@@ -1,6 +1,6 @@
 <.header>
-  Edit Project <%= @project.id %>
-  <:subtitle>Use this form to manage project records in your database.</:subtitle>
+  Edit Project <%= @project.title %>
+<!--  <:subtitle>Use this form to manage project records in your database.</:subtitle> -->
 </.header>
 
 <.project_form changeset={@changeset} action={~p"/user/#{@user_id}/projects/#{@project}"} />
