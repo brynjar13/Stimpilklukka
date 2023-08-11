@@ -1,6 +1,5 @@
 <.header>
-  Project <%= @project.project_name %>
-  <:subtitle>This is a project record from your database.</:subtitle>
+  <%= @project.project_name %>
   <:actions>
     <.link href={~p"/projects/#{@project}/edit"}>
       <.button>Edit project</.button>
