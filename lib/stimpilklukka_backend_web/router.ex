@@ -71,7 +71,7 @@ defmodule StimpilklukkaBackendWeb.Router do
     end
   end
 
-  scope "/user/:user_id", StimpilklukkaBackendWeb do
+  scope "/", StimpilklukkaBackendWeb do
     pipe_through [:browser, :require_authenticated_user]
 
     resources "/projects", ProjectController

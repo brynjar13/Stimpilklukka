@@ -20,7 +20,7 @@ defmodule StimpilklukkaBackendWeb.ProjectController do
       {:ok, project} ->
         conn
         |> put_flash(:info, "Project created successfully.")
-        |> redirect(to: ~p"/user/#{conn.assigns.current_user.id}/projects/#{project}")
+        |> redirect(to: ~p"/projects/#{project}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, :new, changeset: changeset, user_id: conn.assigns.current_user.id)
@@ -45,7 +45,7 @@ defmodule StimpilklukkaBackendWeb.ProjectController do
       {:ok, project} ->
         conn
         |> put_flash(:info, "Project updated successfully.")
-        |> redirect(to: ~p"/user/#{conn.assigns.current_user.id}/projects/#{project}")
+        |> redirect(to: ~p"/projects/#{project}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, :edit, project: project, changeset: changeset, user_id: conn.assigns.current_user.id)
@@ -58,6 +58,6 @@ defmodule StimpilklukkaBackendWeb.ProjectController do
 
     conn
     |> put_flash(:info, "Project deleted successfully.")
-    |> redirect(to: ~p"/user/#{conn.assigns.current_user.id}/projects")
+    |> redirect(to: ~p"/projects")
   end
 end

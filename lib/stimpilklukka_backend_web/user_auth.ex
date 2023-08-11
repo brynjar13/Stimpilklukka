@@ -225,7 +225,7 @@ defmodule StimpilklukkaBackendWeb.UserAuth do
 
   defp signed_in_path(conn) do
     if conn.assigns.current_user do
-      ~p"/user/#{conn.assigns.current_user.id}/projects"
+      ~p"/projects"
     else
       ~p"/"
     end
