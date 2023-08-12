@@ -22,6 +22,18 @@ defmodule StimpilklukkaBackend.Tasks do
   end
 
   @doc """
+  Returns the tasks of a project by the project id
+  """
+
+  def list_tasks_by_projectid(project_id) do
+    query = from(p in Task,
+    where: p.project_id == ^project_id,
+    select: p
+  )
+  Repo.all(query)
+  end
+
+  @doc """
   Gets a single task.
 
   Raises `Ecto.NoResultsError` if the Task does not exist.

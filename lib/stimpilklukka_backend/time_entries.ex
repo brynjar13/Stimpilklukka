@@ -22,6 +22,19 @@ defmodule StimpilklukkaBackend.TimeEntries do
   end
 
   @doc """
+  Returns the list of time entries in a single project
+
+  """
+
+  def list_time_entries_by_projectid(project_id) do
+    query = from(p in TimeEntry,
+      where: p.project_id == ^project_id,
+      select: p
+    )
+    Repo.all(query)
+  end
+
+  @doc """
   Gets a single time_entry.
 
   Raises `Ecto.NoResultsError` if the Time entry does not exist.
