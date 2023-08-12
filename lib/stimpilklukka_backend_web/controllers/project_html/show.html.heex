@@ -1,5 +1,6 @@
 <.header>
   <%= @project.project_name %>
+  <:subtitle><%= @project.project_description %></:subtitle>
   <:actions>
     <.link href={~p"/projects/#{@project}/edit"}>
       <.button>Edit project</.button>
@@ -7,9 +8,5 @@
   </:actions>
 </.header>
 
-<.list>
-  <:item title="Project name"><%= @project.project_name %></:item>
-  <:item title="Project description"><%= @project.project_description %></:item>
-</.list>
 
 <.back navigate={~p"/projects"}>Back to projects</.back>
