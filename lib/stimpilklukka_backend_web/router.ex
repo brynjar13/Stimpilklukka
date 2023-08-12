@@ -77,6 +77,14 @@ defmodule StimpilklukkaBackendWeb.Router do
     resources "/projects", ProjectController
   end
 
+  scope "/projects/:project_id", StimpilklukkaBackendWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
+    get "/timetable", TimeEntryController, :index
+    post "/timetable", TimeEntryController, :create
+    resources "/tasks", TaskController
+  end
+
   scope "/", StimpilklukkaBackendWeb do
     pipe_through [:browser]
 
