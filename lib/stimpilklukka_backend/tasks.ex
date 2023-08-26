@@ -27,10 +27,10 @@ defmodule StimpilklukkaBackend.Tasks do
 
   def list_tasks_by_projectid(project_id) do
     query = from(p in Task,
-    where: p.project_id == ^project_id,
-    select: p
-  )
-  Repo.all(query)
+      where: p.project_id == ^project_id,
+      select: p
+    )
+    Repo.all(query)
   end
 
   @doc """
