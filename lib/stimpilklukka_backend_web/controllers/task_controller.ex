@@ -4,7 +4,8 @@ defmodule StimpilklukkaBackendWeb.TaskController do
   alias StimpilklukkaBackend.Tasks
 
   def index(conn, params) do
-     tasks = Tasks.list_tasks_by_projectid(params.project_id)
-     render(conn, :index, tasks: tasks)
+    project_id = params["project_id"]
+    tasks = Tasks.list_tasks_by_projectid(project_id)
+    render(conn, :index, tasks: tasks)
   end
 end
