@@ -14,7 +14,7 @@ defmodule StimpilklukkaBackend.StimpilklukkaFixtures do
         project_name: "some project_name",
         project_description: "some project_description"
       })
-      |> StimpilklukkaBackend.Stimpilklukka.create_project()
+      |> StimpilklukkaBackend.Projects.create_project()
 
     project
   end
