@@ -74,11 +74,11 @@ defmodule StimpilklukkaBackendWeb.Router do
   scope "/", StimpilklukkaBackendWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    resources "/projects", ProjectController
+    resources "/projects", ProjectController, param: "project_id"
   end
 
   scope "/projects/:project_id", StimpilklukkaBackendWeb do
-    pipe_through [:browser, :require_authenticated_user]
+    pipe_through [:browser, :require_authenticated_user, :require_project_ownership]
 
     get "/timetable", TimeEntryController, :index
     post "/timetable", TimeEntryController, :create

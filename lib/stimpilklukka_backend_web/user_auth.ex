@@ -5,6 +5,7 @@ defmodule StimpilklukkaBackendWeb.UserAuth do
   import Phoenix.Controller
 
   alias StimpilklukkaBackend.Accounts
+  alias StimpilklukkaBackend.Projects
 
   # Make the remember me cookie valid for 60 days.
   # If you want bump or reduce this value, also change
@@ -209,6 +210,17 @@ defmodule StimpilklukkaBackendWeb.UserAuth do
       |> redirect(to: ~p"/users/log_in")
       |> halt()
     end
+  end
+
+  def require_project_ownership(conn, _opts) do
+   project = Projects.get_project!(conn.params["project_id"])
+   if conn.assigns.current_user.id == project.user_id do
+     conn
+   else
+    conn
+    |> redirect(to: ~p"/projects")
+    |> halt()
+   end
   end
 
   defp put_token_in_session(conn, token) do
